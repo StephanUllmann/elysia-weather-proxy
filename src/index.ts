@@ -1,5 +1,6 @@
 import { Elysia, Handler } from 'elysia';
 const weatherApiKey = process.env.WEATHER_API_KEY;
+const port = process.env.PORT ?? 3000;
 
 if (!weatherApiKey) {
   console.log('No API key');
@@ -27,6 +28,6 @@ const weatherHandler: Handler = async ({ request, server, query }) => {
 const app = new Elysia()
   .get('/', () => 'Hello Elysia')
   .get('/weather-now', weatherHandler)
-  .listen(3000);
+  .listen(port);
 
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
