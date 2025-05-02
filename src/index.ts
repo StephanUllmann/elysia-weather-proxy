@@ -12,17 +12,17 @@ let data;
 
 const weatherHandler: Handler = async ({ request, server, query }) => {
   const { lat, lon } = query;
-  if (!data) {
-    console.log('Running');
-    try {
-      const res = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${lat},${lon}&hour_fields=temp_c&days=2`
-      );
-      data = await res.json();
-    } catch (error) {
-      console.log(error);
-      return { message: 'Lookup failed' };
-    }
+  // if (!data) {
+  console.log('Running');
+  try {
+    const res = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${lat},${lon}&hour_fields=temp_c&days=2`
+    );
+    data = await res.json();
+  } catch (error) {
+    console.log(error);
+    return { message: 'Lookup failed' };
+    // }
   }
 
   return {
@@ -33,7 +33,11 @@ const weatherHandler: Handler = async ({ request, server, query }) => {
 };
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      origin: ['http://localhost:5173', 'https://startling-starship-eb2844.netlify.app/'],
+    })
+  )
   .get('/', () => 'Hello Elysia')
   .get('/weather-now', weatherHandler)
   .listen(port);
