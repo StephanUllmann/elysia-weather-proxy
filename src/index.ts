@@ -35,7 +35,7 @@ const weatherHandler: Handler = async ({ request, server, query }) => {
 const app = new Elysia()
   .use(
     cors({
-      origin: ['http://localhost:5173', 'https://startling-starship-eb2844.netlify.app/'],
+      origin: ['http://localhost:5173', 'https://startling-starship-eb2844.netlify.app'],
     })
   )
   .get('/', () => 'Hello Elysia')
